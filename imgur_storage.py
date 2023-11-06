@@ -3,10 +3,13 @@ import requests
 from django.core.files.storage import Storage
 from django.utils.deconstruct import deconstructible
 
+# unhash below if you are using lower version Django < 4.2
+# from czarny_kot.settings import STORAGES
+# imgur_access = STORAGES['imgur']['OPTIONS']
 
 @deconstructible
 class ImgurStorage(Storage):
-    #
+
     def __init__(self, **kwargs):
 
         self.CLIENT_ID = kwargs.get("CLIENT_ID")
@@ -15,6 +18,16 @@ class ImgurStorage(Storage):
         self.ACCESS_TOKEN = kwargs.get("ACCESS_TOKEN")
         self.REFRESH_TOKEN = kwargs.get("REFRESH_TOKEN")
         self.base_api_url = kwargs.get('base_api_url')
+
+        # unhash code below if you are using lower version Django < 4.2.
+        # code above u can comment then.
+
+        # self.CLIENT_ID = imgur_access['CLIENT_ID']
+        # self.CLIENT_SECRET = imgur_access["CLIENT_SECRET"]
+        # self.CLIENT_USERNAME = imgur_access["CLIENT_USERNAME"]
+        # self.ACCESS_TOKEN = imgur_access["ACCESS_TOKEN"]
+        # self.REFRESH_TOKEN = imgur_access["REFRESH_TOKEN"]
+        # self.base_api_url = imgur_access['base_api_url']
 
         # configurations for hitting API
         self.requests_configs = {
